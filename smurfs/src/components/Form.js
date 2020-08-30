@@ -1,25 +1,32 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { addSmurf } from "../actions/actions";
 
-const defaultFormState = {
-    name: '',
-    age: '',
-    height: ''
-}
 
-const Form = () => {
-    const [formState, setFormState] = useState(defaultFormState);
-    
+
+const Form = props => {
+    const [formState, setFormState] = useState({
+        name: "",
+        age: "",
+        height: "",
+    });
+
+    const handleChange = (e) => {
+        setFormState({ ...formState, [e.target.name]: e.target.value });
+    };
 
     const handleSubmit = e => {
         e.preventDefault();
+        props.addSmurf(formState);
         console.log('Smurf Submitted:', formState);
-    }
-        const handleChange = e => {
-            setFormState({
-                ...formState,
-                [e.target.name]: e.target.value
-            })
-        }
+        setFormState({
+            name: "",
+            age: "",
+            height: "",
+        });
+    };
+
+
 
     return (
         <div className="Form">
@@ -38,7 +45,7 @@ const Form = () => {
                     <label >Age</label>
                     <input
                         name="age"
-                        placeholder="18"
+                        placeholder="200"
                         value={formState.age}
                         onChange={handleChange}
                     />
@@ -51,11 +58,20 @@ const Form = () => {
                         value={formState.height}
                         onChange={handleChange}
                     />
+                    <button type="submit">Add Smurf</button>
                 </div>
-                <input type="submit" />
             </form>
         </div>
     );
 };
 
-export default Form;
+const mapStateToProps = (state) => {
+    return {
+        adding: state.adding,
+        errors: state.errors,
+    };
+};
+
+const mapDispatchToProps = { addSmurf };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
