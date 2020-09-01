@@ -1,5 +1,3 @@
-import * as actions from '../actions/actions';
-
 export const initialState = {
     errors: '',
     smurfs: [],
@@ -9,28 +7,29 @@ export const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actions.FETCH_SMURF_START:
+        case "FETCH_SMURF_START":
             return {
                 ...state, fetching: true
             }
-        case actions.FETCH_SMURF_SUCCESS:
+        case "FETCH_SMURF_SUCCESS":
             return {
                 ...state, smurfs: action.payload, fetching: false, errors: ''
             }
-        case actions.FETCH_SMURF_ERROR:
+        case "FETCH_SMURF_ERROR":
             return {
                 ...state, errors: action.payload, fetching: false
             }
 
-        case actions.ADD_SMURF_START:
+//Adding smurf
+        case "ADD_SMURF_START":
             return {
                 ...state, adding: true
             };
-        case actions.ADD_SMURF_SUCCESS:
+        case "ADD_SMURF_SUCCESS":
             return {
                 ...state, adding: false, smurfs: action.payload, errors: ''
             };
-        case actions.ADD_SMURF_ERROR:
+        case "ADD_SMURF_ERROR":
             return {
                 ...state, errors: action.payload
             };

@@ -4,7 +4,7 @@ import { addSmurf } from "../actions/actions";
 
 
 
-const Form = props => {
+const Form = ({ addSmurf}) => {
     const [formState, setFormState] = useState({
         name: "",
         age: "",
@@ -17,7 +17,7 @@ const Form = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        props.addSmurf(formState);
+        addSmurf(formState);
         console.log('Smurf Submitted:', formState);
         setFormState({
             name: "",
@@ -26,13 +26,11 @@ const Form = props => {
         });
     };
 
-
-
     return (
         <div className="Form">
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Name</label>
+                    <label>Name </label>
                     <input
                         type="text"
                         name="name"
@@ -42,7 +40,7 @@ const Form = props => {
                     />
                 </div>
                 <div>
-                    <label >Age</label>
+                    <label>Age </label>
                     <input
                         name="age"
                         placeholder="200"
@@ -51,15 +49,15 @@ const Form = props => {
                     />
                 </div>
                 <div>
-                    <label >Height</label>
+                    <label>Height </label>
                     <input
                         name="height"
                         placeholder="5cm"
                         value={formState.height}
                         onChange={handleChange}
                     />
-                    <button type="submit">Add Smurf</button>
                 </div>
+                    <button type="submit">Add Smurf</button>
             </form>
         </div>
     );
